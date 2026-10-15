@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Instagram Анны — макет профиля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+/* ---------- варианты оформления ---------- */
+body[data-v="a"]{ /* Утро */
+  --paper:#F7F2EC; --ink:#2B2420; --muted:#7A6E66;
+  --t1:#E9D5C9; --t1i:#3A2A22; --t2:#CAD5C3; --t2i:#24332A; --t3:#2F3B33; --t3i:#F3EDE4;
+  --accent:#B8673F; --accent2:#7E9C84;
+  --display:'Prata', Georgia, serif; --body:'Onest', system-ui, sans-serif;
+  --hl-bg:#F7F2EC; --hl-ink:#6F8C74; --hl-ring:#D8CABC;
+}
+body[data-v="b"]{ /* Изумруд */
+  --paper:#EFE6D6; --ink:#183A34; --muted:#5E716B;
+  --t1:#183A34; --t1i:#EFE6D6; --t2:#EFE6D6; --t2i:#183A34; --t3:#E07A5F; --t3i:#2A1510;
+  --accent:#C9A45C; --accent2:#E07A5F;
+  --display:'Unbounded', system-ui, sans-serif; --body:'Golos Text', system-ui, sans-serif;
+  --hl-bg:#183A34; --hl-ink:#C9A45C; --hl-ring:#C9A45C;
+}
+body[data-v="c"]{ /* Дневник */
+  --paper:#FBF8F1; --ink:#1D1D1B; --muted:#6D675E;
+  --t1:#FBF8F1; --t1i:#1D1D1B; --t2:#EADBC4; --t2i:#1D1D1B; --t3:#1F1E1C; --t3i:#F6F1E6;
+  --accent:#D2492A; --accent2:#2F5D8A;
+  --display:'Caveat', cursive; --body:'Literata', Georgia, serif;
+  --hl-bg:#EADBC4; --hl-ink:#1D1D1B; --hl-ring:#1D1D1B;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+/* лендинг — один для всех вариантов; меняется только оформление постов */
+body{--page:#EFE8DF; --page-ink:#2E2723; --page-muted:#7C7068; --page-line:#D9CEC2; --page-card:#F8F4EE;
+  --l-accent:#B8673F; --l-display:'Prata', Georgia, serif; --l-body:'Onest', system-ui, sans-serif}
+body{background:var(--page); color:var(--page-ink); font-family:var(--l-body); transition:background .5s,color .5s; min-height:100vh}
+button{font:inherit; color:inherit; cursor:pointer}
+mark.todo{background:#FFE58A; color:#3b2f00; border-radius:3px; padding:0 .2em; box-decoration-break:clone; -webkit-box-decoration-break:clone}
+
+/* ---------- шапка страницы ---------- */
+.top{max-width:1240px; margin:0 auto; padding:28px 24px 8px; display:flex; flex-wrap:wrap; gap:18px 32px; align-items:flex-end; justify-content:space-between}
+.top h1{font-family:var(--l-display); font-weight:400; font-size:clamp(28px,4vw,46px); line-height:1.05; margin:0; letter-spacing:-.01em}
+.top p{margin:6px 0 0; color:var(--page-muted); font-size:14px; max-width:560px}
+.vtabs{display:flex; gap:8px; flex-wrap:wrap}
+.vtab{border:1px solid var(--page-line); background:transparent; border-radius:999px; padding:8px 14px 8px 8px; display:flex; align-items:center; gap:10px; font-size:14px; transition:.25s}
+.vtab .sw{display:flex}
+.vtab .sw i{width:18px; height:18px; border-radius:50%; margin-left:-5px; border:2px solid var(--page)}
+.vtab .sw i:first-child{margin-left:0}
+.vtab b{font-weight:600}
+.vtab[aria-pressed="true"]{background:var(--page-ink); color:var(--page); border-color:var(--page-ink)}
+.vtab[aria-pressed="true"] .sw i{border-color:var(--page-ink)}
+.toggle{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--page-muted); user-select:none}
+.toggle input{accent-color:var(--l-accent)}
+
+/* ---------- раскладка ---------- */
+.wrap{max-width:1240px; margin:0 auto; padding:16px 24px 60px; display:grid; grid-template-columns:420px 1fr; gap:40px; align-items:start}
+@media (max-width:980px){ .wrap{grid-template-columns:minmax(0,1fr); justify-items:center} .plan{width:100%; min-width:0} }
+
+/* ---------- телефон / Instagram ---------- */
+.phone{width:400px; max-width:100%; background:#fff; color:#000; border-radius:46px; border:11px solid #121212; box-shadow:0 40px 80px -30px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.2); overflow:hidden; position:sticky; top:18px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+@media (max-width:980px){ .phone{position:relative; top:0} }
+.screen{height:min(860px, calc(100vh - 60px)); overflow-y:auto; scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.status{display:flex; justify-content:space-between; align-items:center; padding:12px 26px 4px; font-size:14px; font-weight:600}
+.status .dots{display:flex; gap:5px; align-items:center}
+.status .dots i{display:block; background:#000; border-radius:2px}
+.igbar{display:flex; align-items:center; justify-content:space-between; padding:6px 14px 10px}
+.igbar .u{font-weight:700; font-size:20px; display:flex; align-items:center; gap:6px}
+.igbar .ic{display:flex; gap:20px}
+.ph-head{display:flex; align-items:center; gap:22px; padding:4px 14px 10px}
+.ava{width:88px; height:88px; border-radius:50%; padding:3px; background:conic-gradient(from 210deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5,#feda75); flex:none}
+.ava img{width:100%; height:100%; border-radius:50%; object-fit:cover; border:3px solid #fff; display:block}
+.stats{display:flex; flex:1; justify-content:space-around; text-align:center}
+.stats b{display:block; font-size:17px}
+.stats span{font-size:13px}
+.bio{padding:0 14px; font-size:14px; line-height:1.38}
+.bio .nm{font-weight:600}
+.bio .cat{color:#737373}
+.bio .tx{white-space:pre-line}
+.bio .lnk{color:#00376b; font-weight:600; display:flex; gap:5px; align-items:center; margin-top:2px}
+.btns{display:flex; gap:6px; padding:12px 14px 4px}
+.btns span{flex:1; text-align:center; font-weight:600; font-size:14px; padding:7px 0; border-radius:8px; background:#efefef}
+.btns span.pri{background:#0095f6; color:#fff}
+.btns span.sq{flex:none; width:34px}
+.hls{display:flex; gap:14px; overflow-x:auto; padding:14px 14px 10px; scrollbar-width:none}
+.hls::-webkit-scrollbar{display:none}
+.hl{flex:none; width:66px; text-align:center; font-size:12px; background:none; border:0; padding:0; color:#000}
+.hl .c{width:66px; height:66px; border-radius:50%; border:1px solid #dbdbdb; padding:3px; display:block; margin-bottom:5px; transition:transform .2s}
+.hl:hover .c{transform:scale(1.06)}
+.hl .c span{width:100%; height:100%; border-radius:50%; background:var(--hl-bg); display:flex; align-items:center; justify-content:center; transition:background .5s}
+.hl .c svg{width:46%; height:46%; stroke:var(--hl-ink); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:stroke .5s}
+body[data-v="b"] .hl .c span{box-shadow:inset 0 0 0 1.5px var(--hl-ring)}
+body[data-v="c"] .hl .c span{background:radial-gradient(circle at 35% 30%, #F5EBDB, var(--hl-bg)); }
+body[data-v="c"] .hl .c svg{stroke-width:1.8}
+.hl em{font-style:normal; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.gtabs{display:flex; border-top:1px solid #dbdbdb; margin-top:6px}
+.gtabs span{flex:1; display:flex; justify-content:center; padding:10px 0; color:#8e8e8e}
+.gtabs span.on{color:#000; box-shadow:inset 0 -1px 0 #000}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px}
+.tile{position:relative; padding:0; border:0; background:#eee; display:block; aspect-ratio:3/4; overflow:hidden; animation:pop .5s cubic-bezier(.2,.8,.2,1) both}
+.tile:hover .card{filter:brightness(.92)}
+.tile .bdg{position:absolute; top:6px; right:6px; display:flex; gap:4px; z-index:3}
+.tile .bdg svg{width:16px; height:16px; fill:#fff; filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.tile .num{position:absolute; left:50%; top:50%; z-index:4; width:40px; height:40px; display:grid; place-items:center; background:rgba(17,17,17,.86); color:#fff; font:700 16px/1 system-ui; border-radius:50%; box-shadow:0 0 0 3px rgba(255,255,255,.85); opacity:0; transform:translate(-50%,-50%) scale(.5); transition:.25s}
+body.show-num .tile .num{opacity:1; transform:translate(-50%,-50%)}
+.tile .cam{position:absolute; left:6px; top:6px; z-index:3; font:600 9px/1 system-ui; background:rgba(255,255,255,.9); color:#222; padding:4px 6px; border-radius:999px}
+@keyframes pop{from{opacity:0; transform:scale(.94)}}
+@keyframes rise{from{opacity:0; transform:translateY(24px)}}
+
+/* ---------- карточки (обложки и слайды), всё в cqw ---------- */
+.card{position:relative; width:100%; aspect-ratio:3/4; overflow:hidden; container-type:inline-size; background:var(--paper); color:var(--ink); transition:background .5s,color .5s,filter .2s; text-align:left; font-family:var(--body)}
+.card .in{position:absolute; inset:0; padding:10cqw 9cqw; display:flex; flex-direction:column; justify-content:center; gap:3.4cqw; z-index:2}
+.card .kick{font-family:var(--body); font-size:3.9cqw; letter-spacing:.18em; text-transform:uppercase; font-weight:600; opacity:.75}
+.card .ttl{font-family:var(--display); font-size:9.6cqw; line-height:1.1; display:block}
+.card .bd{font-size:4.7cqw; line-height:1.4; opacity:.86; display:block}
+.card.t1{background:var(--t1); color:var(--t1i)} .card.t2{background:var(--t2); color:var(--t2i)} .card.t3{background:var(--t3); color:var(--t3i)}
+
+/* фото */
+.k-photo .ph{position:absolute; inset:0}
+.k-photo .ph img{width:100%; height:100%; object-fit:cover; display:block}
+.k-photo .cap{position:absolute; left:0; right:0; bottom:0; padding:22cqw 8cqw 8cqw; z-index:2; display:flex; flex-direction:column; gap:2.4cqw; color:#fff;
+  background:linear-gradient(to top, rgba(20,16,14,.78), rgba(20,16,14,.35) 55%, transparent)}
+.k-photo .ttl{font-size:10cqw}
+/* товар: фото без изменений, текст — рядом, не поверх */
+.k-product .pimgs{position:absolute; left:7cqw; right:7cqw; top:7cqw; aspect-ratio:1; display:grid; gap:2cqw; border-radius:3cqw; overflow:hidden}
+.k-product .pimgs img{width:100%; height:100%; object-fit:cover; display:block}
+.k-product .pimgs.n3{grid-template-columns:2fr 1fr; grid-template-rows:1fr 1fr}
+.k-product .pimgs.n3 img:first-child{grid-row:1/3}
+.k-product .pt{position:absolute; left:7cqw; right:7cqw; bottom:6cqw; display:flex; flex-direction:column; gap:1.6cqw}
+.k-product .ttl{font-size:7.4cqw}
+.k-product .kick{color:var(--accent); opacity:1}
+/* список */
+.k-list ol{margin:0; padding:0; list-style:none; counter-reset:li; display:flex; flex-direction:column; gap:3.2cqw}
+.k-list li{counter-increment:li; display:grid; grid-template-columns:9cqw 1fr; gap:2cqw; font-size:5cqw; line-height:1.3; align-items:baseline}
+.k-list li::before{content:counter(li); font-family:var(--display); font-size:7.5cqw; color:var(--accent); line-height:1}
+.k-list .ttl{font-size:8.4cqw; margin-bottom:2cqw}
+/* цитата */
+.k-quote .qm{font-family:var(--display); font-size:34cqw; line-height:.6; color:var(--accent); height:16cqw; display:block}
+.k-quote .q{font-family:var(--display); font-size:7.6cqw; line-height:1.25}
+.k-quote .who{font-size:4.4cqw; opacity:.75}
+/* призыв */
+.k-cta{background:var(--t3); color:var(--t3i)}
+.k-cta .pill{align-self:flex-start; margin-top:3cqw; font-size:4.6cqw; font-weight:600; padding:2.6cqw 4.4cqw; border-radius:99cqw; background:var(--accent); color:#fff}
+.k-cta .up{font-size:4.2cqw; opacity:.8}
+/* скриншот-заглушка */
+.k-shot .in{justify-content:flex-end; gap:3cqw}
+.k-shot .bb{max-width:78%; padding:3.4cqw 4.4cqw; border-radius:5cqw; font-size:4.6cqw; line-height:1.35; background:rgba(255,255,255,.9); color:#222; box-shadow:0 1cqw 3cqw rgba(0,0,0,.08)}
+.k-shot .bb.r{align-self:flex-end; background:var(--accent); color:#fff}
+.need-tag{position:absolute; left:4cqw; top:4cqw; z-index:3; font:600 3.6cqw/1 system-ui; background:#FFE58A; color:#3b2f00; padding:1.8cqw 2.6cqw; border-radius:99cqw}
+
+/* --- A · Утро: тонкая рамка, антиква, тёплое фото --- */
+body[data-v="a"] .card .in::after{content:""; position:absolute; inset:4.5cqw; border:1px solid currentColor; opacity:.22; pointer-events:none}
+body[data-v="a"] .k-photo .ph img{filter:saturate(.88) sepia(.1) contrast(1.02)}
+body[data-v="a"] .k-text .ttl::after{content:""; display:block; width:12cqw; height:1px; background:currentColor; opacity:.5; margin-top:5cqw}
+body[data-v="a"] .k-product .pimgs{box-shadow:0 2cqw 6cqw rgba(60,40,30,.16)}
+
+/* --- B · Изумруд: дуотон, гротеск, золото --- */
+body[data-v="b"] .card .ttl{font-weight:800; letter-spacing:-.02em; font-size:8.2cqw; line-height:1.08}
+body[data-v="b"] .card .kick{color:var(--accent); opacity:1}
+body[data-v="b"] .card.t2 .kick, body[data-v="b"] .card.t3 .kick{color:inherit; opacity:.7}
+body[data-v="b"] .k-text .in{justify-content:flex-end}
+body[data-v="b"] .k-text .in::before{content:attr(data-big); position:absolute; top:6cqw; left:8cqw; font-family:var(--display); font-weight:800; font-size:30cqw; line-height:1; color:transparent; -webkit-text-stroke:.5cqw var(--accent); opacity:.85}
+body[data-v="b"] .k-text.t3 .in::before{-webkit-text-stroke-color:var(--t3i); opacity:.35}
+body[data-v="b"] .k-text.t2 .in::before{-webkit-text-stroke-color:var(--t2i); opacity:.25}
+body[data-v="b"] .k-photo .ph{background:#183A34}
+body[data-v="b"] .k-photo .ph img{filter:grayscale(1) contrast(1.12) brightness(1.05); mix-blend-mode:luminosity; opacity:.92}
+body[data-v="b"] .k-photo .ph::after{content:""; position:absolute; inset:0; background:linear-gradient(160deg, rgba(201,164,92,.28), rgba(24,58,52,.15) 50%, rgba(24,58,52,.6)); mix-blend-mode:multiply}
+body[data-v="b"] .k-photo .cap{background:linear-gradient(to top, rgba(16,36,31,.92), rgba(16,36,31,.4) 60%, transparent)}
+body[data-v="b"] .k-photo .kick{align-self:flex-start; background:var(--accent); color:#183A34; padding:1.6cqw 2.8cqw; border-radius:99cqw; letter-spacing:.08em; font-size:3.4cqw}
+body[data-v="b"] .k-product{background:var(--paper)}
+body[data-v="b"] .k-product .pimgs{border-radius:5cqw}
+body[data-v="b"] .k-product .pt{left:0; right:0; bottom:0; padding:5cqw 7cqw 6cqw; background:var(--t1); color:var(--t1i); min-height:23%}
+body[data-v="b"] .k-product .kick{color:var(--accent)}
+body[data-v="b"] .k-product .ttl{font-size:6.3cqw}
+body[data-v="b"] .k-cta{background:var(--accent); color:#183A34}
+body[data-v="b"] .k-cta .pill{background:#183A34; color:var(--accent)}
+body[data-v="b"] .k-quote .q{font-family:var(--body); font-weight:600; font-size:7cqw}
+body[data-v="b"] .k-list li::before{font-weight:800}
+
+/* --- C · Дневник: бумага, рукопись, полароиды, скотч --- */
+body[data-v="c"] .card.t1::before, body[data-v="c"] .k-product::before{content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom, transparent 0 7.6cqw, rgba(47,93,138,.16) 7.6cqw calc(7.6cqw + 1px))}
+body[data-v="c"] .card.t1{background:var(--t1)}
+body[data-v="c"] .card.t1 .in::before{content:""; position:absolute; top:0; bottom:0; left:6cqw; width:1px; background:rgba(210,73,42,.45)}
+body[data-v="c"] .card.t2{background:radial-gradient(circle at 20% 10%, rgba(255,255,255,.35), transparent 40%), var(--t2)}
+body[data-v="c"] .card .ttl{font-weight:700; font-size:12.5cqw; line-height:1}
+body[data-v="c"] .card .kick{font-family:var(--display); text-transform:none; letter-spacing:0; font-size:6.4cqw; font-weight:700; color:var(--accent); opacity:1}
+body[data-v="c"] .card.t3 .kick{color:#F2A58F}
+body[data-v="c"] .card .bd{font-size:4.5cqw}
+body[data-v="c"] .k-text .ttl, body[data-v="c"] .k-list .ttl{background:linear-gradient(transparent 62%, rgba(210,73,42,.28) 62% 88%, transparent 88%); align-self:flex-start; padding-right:2cqw}
+body[data-v="c"] .card.t3 .ttl{background:none}
+body[data-v="c"] .k-text .in::after, body[data-v="c"] .k-list .in::after, body[data-v="c"] .k-quote .in::after{content:""; position:absolute; top:-1cqw; left:50%; width:26cqw; height:8cqw; transform:translateX(-50%) rotate(-3deg); background:rgba(230,214,170,.75); box-shadow:0 .4cqw 1cqw rgba(0,0,0,.08)}
+body[data-v="c"] .k-photo{background:var(--t2)}
+body[data-v="c"] .k-photo .ph{inset:auto; left:9cqw; right:9cqw; top:6cqw; height:66%; background:#fff; padding:3.2cqw 3.2cqw 0; box-shadow:0 2cqw 5cqw rgba(0,0,0,.22); transform:rotate(-1.8deg)}
+body[data-v="c"] .k-photo .ph img{height:calc(100% - 3.2cqw); filter:contrast(1.04) saturate(.9)}
+body[data-v="c"] .k-photo .cap{background:none; color:var(--ink); padding:0 8cqw 4.5cqw; gap:0}
+body[data-v="c"] .k-photo .ttl{font-size:9.6cqw; line-height:.98}
+body[data-v="c"] .k-photo .kick{display:none}
+body[data-v="c"] .k-photo .bd{color:var(--muted)}
+body[data-v="c"] .k-product{background:var(--t1)}
+body[data-v="c"] .k-product .pimgs{transform:rotate(1.6deg); border-radius:1cqw; box-shadow:0 1.6cqw 4cqw rgba(0,0,0,.18); border:2.4cqw solid #fff}
+body[data-v="c"] .k-product .pimgs::after{content:""; position:absolute; top:-3cqw; left:8cqw; width:22cqw; height:7cqw; background:rgba(230,214,170,.8); transform:rotate(-6deg)}
+body[data-v="c"] .k-product .pimgs{overflow:visible}
+body[data-v="c"] .k-product .ttl{font-size:10cqw}
+body[data-v="c"] .k-cta{background:var(--t2); color:var(--ink)}
+body[data-v="c"] .k-cta .ttl{font-size:12cqw}
+body[data-v="c"] .k-cta .up{font-family:var(--display); font-size:7cqw; color:var(--accent); opacity:1; font-weight:700}
+body[data-v="c"] .k-quote .q{font-size:9.4cqw; font-weight:700}
+
+/* ---------- панель стратегии ---------- */
+.plan{animation:rise .8s .1s cubic-bezier(.2,.8,.2,1) both}
+.ptabs{display:flex; flex-wrap:wrap; gap:4px; border-bottom:1px solid var(--page-line); margin-bottom:22px}
+.ptab{background:none; border:0; padding:10px 14px; font-size:15px; color:var(--page-muted); border-bottom:2px solid transparent; margin-bottom:-1px}
+.ptab[aria-selected="true"]{color:var(--page-ink); border-color:var(--l-accent); font-weight:600}
+.pane{display:none; font-size:15.5px; line-height:1.6}
+.pane.on{display:block; animation:rise .4s both}
+.pane h3{font-family:var(--l-display); font-weight:400; font-size:26px; margin:26px 0 8px; line-height:1.15}
+.pane h3:first-child{margin-top:0}
+.pane p{margin:8px 0}
+.pane code{font-size:.9em; background:var(--page-card); border:1px solid var(--page-line); padding:1px 6px; border-radius:6px}
+.box{background:var(--page-card); border:1px solid var(--page-line); border-radius:16px; padding:16px 18px; margin:12px 0}
+.flow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0}
+.flow span{background:var(--page-card); border:1px solid var(--page-line); border-radius:999px; padding:6px 14px; font-size:14px}
+.flow i{font-style:normal; color:var(--l-accent); font-weight:700}
+.mix{list-style:none; padding:0; margin:10px 0; display:grid; gap:10px}
+.mix li{display:grid; grid-template-columns:1fr auto; gap:4px 12px; font-size:14.5px}
+.mix .bar{grid-column:1/3; height:8px; border-radius:99px; background:var(--page-line); overflow:hidden}
+.mix .bar i{display:block; height:100%; background:var(--l-accent); border-radius:99px; transform-origin:left; animation:grow 1s .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.vlist{display:grid; gap:10px}
+.vrow{display:grid; grid-template-columns:76px 1fr; gap:14px; align-items:center; background:var(--page-card); border:1px solid var(--page-line); border-radius:14px; padding:10px; text-align:left}
+.vrow.on{outline:2px solid var(--l-accent)}
+.vrow .mini{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; border-radius:6px; overflow:hidden}
+.vrow .mini i{aspect-ratio:3/4; display:block}
+.vrow b{display:block}
+.vrow span{font-size:14px; color:var(--page-muted)}
+.sched{list-style:none; padding:0; margin:12px 0; display:grid; gap:6px}
+.sched li{display:grid; grid-template-columns:44px 1fr auto; gap:12px; align-items:center; padding:9px 12px; border-radius:12px; background:var(--page-card); border:1px solid var(--page-line); cursor:pointer; transition:transform .15s}
+.sched li:hover{transform:translateX(3px)}
+.sched .n{font-weight:700; font-size:15px; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--l-accent); color:#fff}
+.sched .w{font-size:13px; color:var(--page-muted); text-align:right}
+.sched .tg{display:inline-block; font-size:11px; padding:1px 8px; border-radius:99px; border:1px solid var(--page-line); margin-left:6px; color:var(--page-muted); vertical-align:2px}
+.bio-pre{white-space:pre-line; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; font-size:14.5px}
+.cnt{font-size:13px; color:var(--page-muted)}
+.rules{list-style:none; padding:0; margin:10px 0; display:grid; gap:8px}
+.rules li{display:grid; grid-template-columns:26px 1fr; gap:8px; align-items:start}
+.rules li::before{content:attr(data-s); font-weight:700; text-align:center}
+.rules li.no::before{color:#C0392B} .rules li.ok::before{color:#2E8B57}
+.need{counter-reset:nd; list-style:none; padding:0; display:grid; gap:10px}
+.need li{counter-increment:nd; display:grid; grid-template-columns:30px 1fr; gap:10px}
+.need li::before{content:counter(nd); width:26px; height:26px; border-radius:50%; background:var(--page-ink); color:var(--page); font-size:13px; font-weight:700; display:grid; place-items:center}
+.foot{max-width:1240px; margin:0 auto; padding:0 24px 40px; font-size:13px; color:var(--page-muted)}
+
+/* ---------- варианты описания профиля ---------- */
+.bios{max-width:1240px; margin:0 auto; padding:10px 24px 34px}
+.bios h2{font-family:var(--l-display); font-weight:400; font-size:clamp(26px,3.4vw,38px); line-height:1.1; margin:0 0 6px}
+.bios > p{margin:0 0 18px; color:var(--page-muted); font-size:15px; max-width:760px}
+.bgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px}
+.bcard{background:var(--page-card); border:1px solid var(--page-line); border-radius:18px; padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; transition:box-shadow .2s, transform .2s; animation:rise .5s both}
+.bcard:hover{transform:translateY(-2px); box-shadow:0 14px 30px -18px rgba(60,40,30,.35)}
+.bcard.on{box-shadow:0 0 0 2px var(--l-accent)}
+.bcard header{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.bcard .bn{width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--page-ink); color:var(--page); font-weight:700; font-size:14px; flex:none}
+.bcard header b{font-size:16px}
+.bcard .ang{font-size:13px; color:var(--page-muted)}
+.bcard .rec{margin-left:auto; font-size:12px; font-weight:600; background:var(--l-accent); color:#fff; padding:3px 10px; border-radius:99px}
+.btext{background:#fff; color:#000; border-radius:12px; padding:12px 14px; white-space:pre-line; font:14.5px/1.42 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; border:1px solid var(--page-line)}
+.bmeta{font-size:12.5px; color:var(--page-muted)}
+.bnote{margin:0; font-size:14px; line-height:1.5; flex:1}
+.bact{display:flex; gap:8px; flex-wrap:wrap}
+.bshow{border:0; background:var(--page-ink); color:var(--page); border-radius:999px; padding:7px 14px; font-size:13px}
+.bcard.on .bshow{background:var(--l-accent)}
+
+/* ---------- модальное окно ---------- */
+.modal{position:fixed; inset:0; z-index:50; display:none; background:rgba(10,10,10,.72); backdrop-filter:blur(4px); padding:24px; overflow-y:auto}
+.modal.on{display:block; animation:fade .25s both}
+@keyframes fade{from{opacity:0}}
+.mbox{max-width:1180px; margin:0 auto; background:var(--page); color:var(--page-ink); border-radius:22px; padding:22px 24px 26px; position:relative; animation:rise .35s both}
+.mclose{position:absolute; top:14px; right:14px; width:38px; height:38px; border-radius:50%; border:1px solid var(--page-line); background:var(--page-card); font-size:20px; line-height:1}
+.mhead{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; padding-right:48px}
+.mhead h2{font-family:var(--l-display); font-weight:400; margin:0; font-size:30px; line-height:1.1}
+.mhead .meta{font-size:14px; color:var(--page-muted)}
+.slides{display:flex; gap:14px; overflow-x:auto; padding:18px 2px 14px; scroll-snap-type:x mandatory}
+.slide{flex:none; width:250px; scroll-snap-align:start}
+.slide .card{border-radius:10px; box-shadow:0 10px 30px -12px rgba(0,0,0,.35)}
+.slide .sn{font-size:12px; color:var(--page-muted); margin-top:6px}
+.slide .nd{font-size:12.5px; margin-top:4px; background:#FFE58A; color:#3b2f00; border-radius:8px; padding:5px 8px}
+.slide.story{width:180px}
+.slide.story .card{aspect-ratio:9/16}
+.slide.story .card .bd{font-size:6.2cqw}
+.slide.story .card .ttl{font-size:11cqw}
+body[data-v="c"] .slide.story .card .ttl{font-size:14cqw}
+.mcols{display:grid; grid-template-columns:1.4fr 1fr; gap:22px; margin-top:6px}
+@media (max-width:820px){ .mcols{grid-template-columns:1fr} }
+.capbox{background:var(--page-card); border:1px solid var(--page-line); border-radius:16px; padding:16px 18px; white-space:pre-line; font-size:14.5px; line-height:1.55; font-family:-apple-system,"Segoe UI",Roboto,sans-serif}
+.capbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:13px; color:var(--page-muted)}
+.copy{border:1px solid var(--page-line); background:var(--page-card); border-radius:999px; padding:6px 14px; font-size:13px}
+.copy.ok{background:var(--l-accent); color:#fff; border-color:var(--l-accent)}
+.tags{color:#00376b; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; font-size:14px; margin-top:10px}
+.notes{font-size:14.5px; line-height:1.55}
+.notes dt{font-weight:600; margin-top:10px}
+.notes dd{margin:2px 0 0}
+
+@media (max-width:480px){
+  .top,.wrap,.foot{padding-left:16px; padding-right:16px}
+  .phone{border-width:8px; border-radius:36px}
+  .modal{padding:10px}
+  .mbox{padding:18px 16px}
+  .slide{width:72vw}
+}
+</style>
+</head>
+<body data-v="a">
+
+<header class="top">
+  <div>
+    <h1>Instagram Анны</h1>
+    <p>Макет профиля и первых 12 публикаций. Нажмите на пост или хайлайт — откроются слайды и готовый текст. Справа — стратегия, порядок и что нужно от Анны.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+    <nav class="vtabs" id="vtabs"></nav>
+    <label class="toggle"><input type="checkbox" id="numToggle"> показать номера публикации</label>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="phone" aria-label="Макет профиля Instagram">
+    <div class="screen">
+      <div class="status"><span>9:41</span><span class="dots"><i style="width:17px;height:10px"></i><i style="width:15px;height:10px;border-radius:50%"></i><i style="width:24px;height:11px;border-radius:3px"></i></span></div>
+      <div class="igbar">
+        <span class="u"><svg width="12" height="14" viewBox="0 0 12 14"><rect x="1" y="6" width="10" height="7.5" rx="1.5" fill="#000"/><path d="M3.2 6V4.2a2.8 2.8 0 0 1 5.6 0V6" stroke="#000" stroke-width="1.6" fill="none"/></svg><span id="uname"></span><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 4.5 6 8l3.5-3.5" stroke="#000" stroke-width="1.6" fill="none"/></svg></span>
+        <span class="ic">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </span>
+      </div>
+      <div class="ph-head">
+        <span class="ava"><img src="img/anna.jpg" alt="Аватар — фото Анны (временное стоковое)"></span>
+        <div class="stats"><div><b>12</b><span>публикаций</span></div><div><b>—</b><span>подписчиков</span></div><div><b>—</b><span>подписок</span></div></div>
+      </div>
+      <div class="bio" id="bio"></div>
+      <div class="btns"><span class="pri">Подписаться</span><span>Сообщение</span><span class="sq">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" style="vertical-align:-3px"><circle cx="10" cy="8" r="4"/><path d="M3 20c1-4 4-6 7-6s6 2 7 6M19 8v6M16 11h6"/></svg></span></div>
+      <div class="hls" id="hls"></div>
+      <div class="gtabs">
+        <span class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></span>
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8h18M8 3l3 5M14 3l3 5"/><path d="M10 12v5l4.5-2.5z" fill="currentColor"/></svg></span>
+        <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M6.5 19c1.2-2.6 3.2-4 5.5-4s4.3 1.4 5.5 4"/></svg></span>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <aside class="plan">
+    <nav class="ptabs" role="tablist" id="ptabs">
+      <button class="ptab" role="tab" data-p="idea" aria-selected="true">Идея</button>
+      <button class="ptab" role="tab" data-p="profile">Профиль</button>
+      <button class="ptab" role="tab" data-p="order">Порядок</button>
+      <button class="ptab" role="tab" data-p="rhythm">Ритм</button>
+      <button class="ptab" role="tab" data-p="rules">Правила</button>
+      <button class="ptab" role="tab" data-p="need">Нужно от Анны</button>
+    </nav>
+
+    <section class="pane on" id="p-idea">
+      <h3>Цель профиля</h3>
+      <p><b>Сначала команда, потом продукты.</b> Instagram — личный блог Анны, а не магазин. Здесь с ней знакомятся и начинают ей доверять. Покупки, регистрация и вопросы — в боте.</p>
+      <div class="flow"><span>Пост · Reels · сторис</span><i>→</i><span>ссылка в шапке</span><i>→</i><span>бот @Anna_72ks_bot</span><i>→</i><span>Анна / группа</span></div>
+      <p>Ссылка ведёт в бот с меткой <code>instagram</code>, поэтому в статистике бота видно, сколько людей пришло именно отсюда.</p>
+      <h3>Рубрики</h3>
+      <ul class="mix" id="mix"></ul>
+      <h3>Почему в постах нет цен</h3>
+      <p>Правила компании запрещают интернет-магазины в соцсетях, даже витрину. Поэтому в постах Анна делится опытом и советами, а цены и заказ — только в боте. Так профиль выглядит как блог и меньше рискует.</p>
+      <h3>Три варианта оформления</h3>
+      <div class="vlist" id="vlist"></div>
+    </section>
+
+    <section class="pane" id="p-profile">
+      <h3>Шапка профиля</h3>
+      <div class="box">
+        <p><b>Тип аккаунта:</b> профессиональный → «Автор», категория «Личный блог». Так видна статистика.</p>
+        <p><b>Ник</b> (без названия компании; проверить, свободен ли): <code>anna.korea.care</code> · <code>anna.kcare.ge</code> · <code>anna_korean_care</code></p>
+        <p><b>Имя</b> (по нему ищут): <span id="pname"></span></p>
+        <p><b>Био</b> <span class="cnt" id="biocnt"></span> · <a href="#bios" style="color:inherit">все 5 вариантов — ниже на странице</a></p>
+        <div class="bio-pre" id="biotext"></div>
+        <p><b>Ссылка:</b> <code>https://t.me/Anna_72ks_bot?start=instagram</code>, подпись ссылки — «Бот: подборки и вопросы».</p>
+        <p><b>Аватар:</b> крупный портрет, лицо — больше половины круга, светлый однотонный фон, улыбка. Не логотип и не товар.</p>
+      </div>
+      <h3>Хайлайты</h3>
+      <p>Девять «вечных» разделов. Порядок такой же, как цель профиля: сначала о себе и команде, потом как купить, потом продукты. На телефоне видно первые 4–5 кружков, поэтому важное — слева. Нажмите кружок в макете, чтобы увидеть, какие сторис туда положить.</p>
+      <p>Обложки — простые иконки в цвете выбранного варианта. Готовые картинки 1080×1920 сделаю после выбора варианта.</p>
+    </section>
+
+    <section class="pane" id="p-order">
+      <h3>Как сложится сетка</h3>
+      <p>Instagram показывает новые посты сверху. Первые три публикуем в один день и закрепляем — это верхний ряд «знакомство · команда · скидка». Остальные идут по графику, и сетка складывается в диагональный узор: фото Анны → текстовая карточка → товар.</p>
+      <p>Включите «показать номера публикации» вверху — на каждой плитке появится её номер.</p>
+      <ol class="sched" id="sched"></ol>
+      <div class="box"><b>Закрепление.</b> Последний закреплённый пост встаёт первым слева. Поэтому закрепляем в обратном порядке: сначала №2, потом №3, последним №1. Проверьте на телефоне; если порядок другой — открепите и закрепите заново.</div>
+    </section>
+
+    <section class="pane" id="p-rhythm">
+      <h3>Неделя</h3>
+      <div class="box">
+        <p><b>Пн</b> — продукт: как пользуюсь, что в составе, распаковка.</p>
+        <p><b>Ср</b> — команда: как это устроено, ответы на вопросы, мифы.</p>
+        <p><b>Пт</b> — личное и клуб: встреча, жизнь в Грузии, отзывы.</p>
+        <p><b>Reels</b> — раз в неделю: распаковка, «мой вечерний уход за 30 секунд», ответ на вопрос. Reels приводят новых людей, посты дают доверие.</p>
+      </div>
+      <h3>Сторис каждый день</h3>
+      <p>3–5 штук: опрос «что показать?», стикер «задайте вопрос», кусочек дня, отзыв, 1–2 раза в неделю — стикер-ссылка на бот. Лучшие — в хайлайты.</p>
+      <h3>Хэштеги</h3>
+      <p>Не больше 5 на пост: Instagram урезал их число. Без названия компании.</p>
+      <div class="box" style="font-size:14px">
+        <p><b>Уход:</b> #корейскийуход #корейскаякосметика #уходзалицом #вечернийуход #уходзакожей</p>
+        <p><b>Грузия:</b> #тбилиси #батуми #грузия #русскиевгрузии #жизньвгрузии</p>
+        <p><b>Команда:</b> #сетевоймаркетинг #сетевойбизнес #командаединомышленников</p>
+        <p><b>БАДы:</b> #бадыизкореи #корейскиебады #здоровыепривычки</p>
+      </div>
+      <h3>Первый час</h3>
+      <p>После публикации Анна отвечает на все комментарии в течение часа: Instagram считает это интересом к посту и показывает его шире.</p>
+    </section>
+
+    <section class="pane" id="p-rules">
+      <h3>Чтобы профиль не заблокировали</h3>
+      <ul class="rules">
+        <li class="no" data-s="✕">Название компании в нике, имени, хайлайтах и хэштегах; логотипы.</li>
+        <li class="ok" data-s="✓">В шапке — «Независимый участник компании».</li>
+        <li class="no" data-s="✕">Медицинские обещания: «лечит», «вылечила», «отменила лекарства», фото «до/после».</li>
+        <li class="ok" data-s="✓">«Мой опыт», «это БАД, не лекарство», «посоветуйтесь с врачом».</li>
+        <li class="no" data-s="✕">Обещания дохода, скриншоты выплат, «миллион за месяц».</li>
+        <li class="ok" data-s="✓">«Доход — только от реальных покупок продукции, растёт постепенно».</li>
+        <li class="ok" data-s="✓">Фото товаров — официальные, без правок и надписей поверх. Текст — рядом или на отдельном слайде.</li>
+        <li class="ok" data-s="✓">Отзывы — только с согласия автора и без фамилий.</li>
+        <li class="no" data-s="✕">Цены в постах и сторис — только в боте.</li>
+      </ul>
+    </section>
+
+    <section class="pane" id="p-need">
+      <h3>Фото и видео</h3>
+      <ol class="need">
+        <li><span><b>Портрет для аватара</b> — дневной свет у окна, светлый однотонный фон, улыбка.</span></li>
+        <li><span><b>3–4 портрета</b> в разной одежде и местах: дом, кафе, город. Для постов «Привет, я Анна» и «Как я помогаю».</span></li>
+        <li><span><b>Распаковка:</b> фото Анны с коробкой заказа + вертикальное видео 20–30 секунд.</span></li>
+        <li><span><b>Пятничная встреча:</b> фото с гостями (с их согласия) или стол с чаем и пробниками.</span></li>
+        <li><span><b>Руки и продукты:</b> полка в ванной, крем в руках, кухня — «как я пользуюсь».</span></li>
+        <li><span><b>Анна за ноутбуком или с телефоном</b> — для поста о помощи новичкам.</span></li>
+        <li><span><b>Город:</b> несколько кадров Тбилиси или её города — фон для сторис.</span></li>
+      </ol>
+      <h3>Факты для текстов</h3>
+      <p>В текстах они отмечены <mark class="todo">жёлтым</mark>:</p>
+      <ul>
+        <li>есть ли уже аккаунт и какой ник; в каком она городе;</li>
+        <li>как она пьёт ХемоХИМ и какой у неё вечерний уход — своими словами;</li>
+        <li>адрес и время клуба, доставка или самовывоз, сроки;</li>
+        <li>3–5 отзывов клиентов (скриншоты, с разрешения).</li>
+      </ul>
+    </section>
+  </aside>
+</main>
+
+<section class="bios" id="bios">
+  <h2>Варианты описания профиля</h2>
+  <p>Пять вариантов шапки, каждый — до 150 символов. Последняя строка «Независимый участник компании» обязательна в любом варианте. Ссылка на бот — отдельным полем под описанием, в текст её не пишем. «Показать в макете» подставляет описание в телефон.</p>
+  <div class="bgrid" id="bgrid"></div>
+</section>
+
+<p class="foot">Фото людей и города — временные стоковые (Unsplash), их заменим на фото Анны. Фото товаров — официальные, без изменений. Жёлтым отмечено то, что нужно уточнить у Анны.</p>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="mbox">
+    <button class="mclose" id="mclose" aria-label="Закрыть">×</button>
+    <div id="mbody"></div>
+  </div>
+</div>
+
+<script>
+const BOT = 't.me/Anna_72ks_bot';
+const PROFILE = {
+  user: 'anna.korea.care',
+  name: 'Анна · корейский уход · Грузия',
+  cat: 'Личный блог',
+  bio: '',
+};
+
+const BIOS = [
+ {name:'Наставница', angle:'сначала команда', rec:true,
+  text:'Покажу, как покупать корейский уход дешевле и собрать свою команду 🤝\n10 лет на этой продукции · 📍 Грузия\nНезависимый участник компании',
+  note:'Сразу понятно, что Анна даёт человеку, и команда стоит первой. Лучший вариант для старта.'},
+ {name:'Личный опыт', angle:'10 лет',
+  text:'10 лет пользуюсь корейскими БАДами и уходом 🌿\nДелюсь, что работает, помогаю с заказом\nи приглашаю в команду\nНезависимый участник компании',
+  note:'Тёплый и спокойный: доверие через собственный опыт. Команда — в конце.'},
+ {name:'Сообщество', angle:'клуб и люди',
+  text:'Собираю людей, которым нравится корейский уход ☕\n📍 Грузия · клуб по пятницам\nЦена участника и своя команда — в боте 👇\nНезависимый участник компании',
+  note:'Подходит, если встречи по пятницам станут главным поводом знакомиться.'},
+ {name:'Выгода', angle:'сначала скидка',
+  text:'Корейский уход и БАДы по цене участника — дешевле ≈ на 10% 🇰🇷\nНаучу заказывать и расскажу о команде\nНезависимый участник компании',
+  note:'Приведёт больше покупателей, чем желающих в команду.'},
+ {name:'Честно', angle:'против стереотипов',
+  text:'Сетевой бизнес без сказок и давления 🤝\n10 лет на корейской продукции · 📍 Грузия\nСкидка · команда · клуб\nНезависимый участник компании',
+  note:'Сильнее всего выделяется среди других продавцов, но может оттолкнуть тех, кому неприятны слова «сетевой бизнес».'},
+];
+let bioIdx = 0;
+PROFILE.bio = BIOS[0].text;
+
+const VARIANTS = {
+  a: {name:'Утро', d:'Светлый: крем, шалфей, терракота, изящная антиква. Ощущение ухоженности и спокойствия. Самый «женский» и мягкий.', sw:['#F7F2EC','#E9D5C9','#CAD5C3','#2F3B33']},
+  b: {name:'Изумруд', d:'Глубокий зелёный с золотом и кораллом, крупный шрифт. Выглядит уверенно и дорого — лучше всего продаёт идею команды.', sw:['#183A34','#C9A45C','#EFE6D6','#E07A5F']},
+  c: {name:'Дневник', d:'Бумага, рукописные заголовки, полароиды и скотч. Живой личный блог — больше всего доверия к человеку.', sw:['#FBF8F1','#EADBC4','#D2492A','#1F1E1C']},
+};
+
+const MIX = [
+  ['Команда и «как это устроено»', 40],
+  ['Анна, клуб, жизнь в Грузии', 25],
+  ['Продукты — как пользуюсь', 25],
+  ['Отзывы', 10],
+];
+
+/* n — порядок публикации; pin — место в закреплённом ряду */
+const POSTS = [
+ {n:1, pin:1, type:'photo', fmt:'Карусель · 5', when:'День 1', title:'Привет, я Анна',
+  slides:[
+   {k:'photo', img:'anna', kicker:'Знакомство', title:'Привет, я Анна', need:'Портрет Анны: дневной свет, улыбка, светлый фон'},
+   {k:'text', tone:1, big:'10', kicker:'10 лет', title:'Пользуюсь корейскими БАДами и уходом уже 10 лет', body:'Начинала как обычный покупатель — просто понравилось качество.'},
+   {k:'photo', img:'tbilisi', kicker:'Где я', title:'Живу в Грузии', body:'По пятницам собираю встречи: чай, пробники, вопросы.', need:'Анна в своём городе'},
+   {k:'list', tone:2, title:'Чем могу помочь', items:['Покупать то же самое по цене участника','Подобрать уход или набор под ваш запрос','Честно рассказать о работе в команде']},
+   {k:'cta', title:'Подборки и вопросы — в моём боте', sub:''}],
+  caption:`Привет! Я Анна 👋
+
+Уже 10 лет пользуюсь корейскими БАДами и уходом. Начинала как обычный покупатель: понравилось качество. Потом стала советовать знакомым, а со временем — помогать им заказывать выгоднее.
+
+Сейчас живу в Грузии ⟦город⟧. Здесь веду этот блог, а по пятницам собираю небольшие встречи: пробуем средства, пьём чай, разбираем вопросы.
+
+Чем могу быть полезна:
+— покажу, как покупать то же самое по цене участника;
+— подберу уход или набор под ваш запрос;
+— честно расскажу, как устроена работа в команде, если захотите попробовать.
+
+Подборки и ответы на частые вопросы — в моём боте, ссылка в шапке профиля 👆
+
+Напишите в комментариях, откуда вы и что вам интереснее: уход, БАДы или команда?
+
+Я независимый участник компании, не её официальный представитель.`,
+  tags:'#знакомство #корейскийуход #русскиевгрузии #тбилиси #бадыизкореи',
+  why:'Первое, что видит новый человек. Лицо + понятное «чем я полезна» — и сразу оба направления: покупки и команда.'},
+
+ {n:2, pin:3, type:'product', fmt:'Карусель · 5', when:'День 1', title:'Как покупать по цене участника',
+  slides:[
+   {k:'product', imgs:['R00267','R00001','R00829'], kicker:'Экономия ≈ 10%', title:'Как покупать по цене участника'},
+   {k:'text', tone:1, big:'2', kicker:'Две цены', title:'У каждого товара на сайте две цены', body:'Для гостя и для участника. Цена участника в среднем примерно на 10% ниже.'},
+   {k:'text', tone:2, big:'0', kicker:'Участник', title:'Регистрация бесплатная', body:'Стартовых пакетов и обязательных взносов нет. Можно просто покупать для себя.'},
+   {k:'list', tone:3, title:'Как это сделать', items:['Откройте мой бот — ссылка в шапке','«📝 Зарегистрироваться самому» — пошагово','Вопросы — пишите прямо в бот']},
+   {k:'cta', title:'Не хотите регистрироваться?', sub:'Кнопка «🛍 Купить со скидкой» в боте'}],
+  caption:`Как покупать корейский уход и БАДы дешевле ✨
+
+На официальном сайте у каждого товара две цены: для гостя и для зарегистрированного участника. Цена участника в среднем примерно на 10% ниже — на регулярных покупках это заметно.
+
+Регистрация бесплатная, стартовых пакетов и обязательных взносов нет. Можно просто покупать для себя и семьи — никто не обязывает «строить бизнес».
+
+Как это сделать:
+1. Откройте мой бот — ссылка в шапке профиля.
+2. Кнопка «📝 Зарегистрироваться самому» — там пошаговая инструкция.
+3. Остались вопросы — пишите прямо в бот, отвечу лично.
+
+Не хотите регистрироваться — кнопка «🛍 Купить со скидкой», помогу с заказом 🤍
+
+Сохраните пост, чтобы не потерять 📌`,
+  tags:'#корейскаякосметика #бадыизкореи #грузия #тбилиси #выгодныепокупки',
+  why:'Самый практичный пост: отвечает на «зачем мне это». Закреплён, чтобы каждый новый человек сразу видел выгоду.'},
+
+ {n:3, pin:2, type:'text', fmt:'Карусель · 5', when:'День 1', title:'Приглашаю в команду — честно',
+  slides:[
+   {k:'text', tone:3, big:'01', kicker:'Команда', title:'Приглашаю в команду. Честно, без сказок'},
+   {k:'list', tone:1, title:'Кому подходит', items:['Вы и так покупаете уход или БАДы','Вам нравится делиться тем, что работает','Готовы учиться и общаться']},
+   {k:'list', tone:2, title:'Что даю я', items:['Пошаговое обучение','Закрытую группу и бот с подборками','Разбор ваших первых заказов','Встречи по пятницам']},
+   {k:'text', tone:3, big:'✕', kicker:'Чего не обещаю', title:'Быстрых денег', body:'Доход здесь — только от реальных покупок продукции, и растёт он постепенно.'},
+   {k:'cta', title:'Интересно? Напишите «Команда»', sub:'В бот — кнопка «🤝 Стать партнёром»'}],
+  caption:`Приглашаю в свою команду — и сразу честно 🤝
+
+Кому подходит:
+— вы и так покупаете уход или БАДы;
+— вам нравится делиться тем, что реально работает;
+— готовы учиться и общаться с людьми.
+
+Что даю я:
+— пошаговое обучение с нуля;
+— закрытую группу и бот с готовыми подборками;
+— разбор ваших первых заказов;
+— встречи по пятницам.
+
+Чего не обещаю — быстрых денег. Доход в этой работе появляется только от реальных покупок продукции и растёт постепенно. Если кто-то обещает «миллион за месяц» — это неправда.
+
+Регистрация бесплатная, обязательных взносов нет.
+
+Интересно — откройте бот (ссылка в шапке) → «🤝 Стать партнёром» или просто напишите мне «Команда». Расскажу подробно и без давления: решать только вам.`,
+  tags:'#сетевоймаркетинг #командаединомышленников #русскиевгрузии #тбилиси #корейскийуход',
+  why:'Главная цель профиля — команда. Честный тон («чего не обещаю») отличает Анну от типичных «сетевиков» и вызывает доверие.'},
+
+ {n:4, type:'product', fmt:'Карусель · 5', when:'День 2', title:'ХемоХИМ — со мной 10 лет',
+  slides:[
+   {k:'product', imgs:['R00001'], kicker:'Мой №1', title:'ХемоХИМ — со мной 10 лет'},
+   {k:'text', tone:1, big:'3', kicker:'Что это', title:'БАД из экстрактов трёх растений', body:'Дудник гигантский, пион молочноцветковый и жгун-корень.'},
+   {k:'text', tone:2, big:'1', kicker:'Как пью я', title:'⟦Курсами, по 1 стику в день⟧', body:'Это мой опыт, а не рекомендация. Схема приёма — на упаковке.'},
+   {k:'text', tone:3, big:'!', kicker:'Важно', title:'Это не лекарство', body:'БАД — дополнение к питанию. Есть заболевания — сначала к врачу.'},
+   {k:'cta', title:'Цена участника — в боте', sub:'Подборка «⭐ Главный хит»'}],
+  caption:`ХемоХИМ — продукт, с которого у меня всё началось 🌿
+
+Это биологически активная добавка к пище: жидкая смесь экстрактов трёх растений — дудника гигантского, пиона молочноцветкового и жгун-корня. Самый известный продукт компании.
+
+Пью его уже 10 лет ⟦как именно: курсами или постоянно, в какое время⟧. Это мой личный опыт, а не рекомендация: схема приёма — на упаковке.
+
+Важно: это не лекарство. Если есть заболевания или вы принимаете препараты — сначала посоветуйтесь с врачом.
+
+Цена участника, наличие и сроки — в моём боте, подборка «⭐ Главный хит» (ссылка в шапке).
+
+А вы пробовали? Поделитесь в комментариях 👇`,
+  tags:'#хемохим #бадыизкореи #корейскиебады #здоровыепривычки #грузия',
+  why:'Флагманский продукт и личная история «10 лет». Без обещаний эффекта — только состав и собственная привычка.'},
+
+ {n:5, type:'text', fmt:'Карусель · 5', when:'День 3', title:'3 мифа о сетевом бизнесе',
+  slides:[
+   {k:'text', tone:3, big:'3', kicker:'Честно', title:'3 мифа о сетевом бизнесе'},
+   {k:'text', tone:1, big:'1', kicker:'Миф 1', title:'«Надо закупаться»', body:'Нет. Регистрация бесплатная, обязательных взносов и стартовых пакетов нет.'},
+   {k:'text', tone:2, big:'2', kicker:'Миф 2', title:'«Надо уговаривать друзей»', body:'Я рассказываю только тем, кому интересно. Остальным просто делюсь уходом.'},
+   {k:'text', tone:1, big:'3', kicker:'Миф 3', title:'«Это быстрые деньги»', body:'Нет. Доход — только от реальных покупок продукции и растёт постепенно.'},
+   {k:'cta', title:'Есть вопросы? Задайте мне', sub:'В боте или на встрече в пятницу'}],
+  caption:`3 мифа о сетевом бизнесе — отвечаю как есть 👇
+
+1. «Надо закупаться». Нет: регистрация бесплатная, стартовых пакетов и обязательных взносов нет. Многие просто покупают для себя по цене участника.
+
+2. «Надо уговаривать друзей». Я рассказываю только тем, кому интересно. Никого не тяну и вам не советую — так теряются и друзья, и желание.
+
+3. «Это быстрые деньги». Нет. Доход появляется только от реальных покупок продукции и растёт постепенно. Кто обещает иначе — лукавит.
+
+Какой миф слышали вы? Напишите в комментариях — разберу в следующих постах.
+
+Хотите спросить лично — пишите в бот (ссылка в шапке) или приходите на встречу в пятницу.`,
+  tags:'#сетевоймаркетинг #сетевойбизнес #командаединомышленников #русскиевгрузии #тбилиси',
+  why:'Снимает главные возражения против сетевого бизнеса. Вопрос в конце даёт комментарии — и темы для следующих постов.'},
+
+ {n:6, type:'photo', fmt:'Карусель · 4', when:'День 5 · пятница', title:'Пятница — наш клуб',
+  slides:[
+   {k:'photo', img:'club', kicker:'Пятница', title:'Наш клуб ☕', need:'Фото со встречи (с согласия гостей) или стол с чаем и пробниками'},
+   {k:'list', tone:1, title:'Что мы делаем', items:['Пробуем средства','Пьём чай и знакомимся','Отвечаю на вопросы']},
+   {k:'text', tone:2, big:'☕', kicker:'Кто приходит', title:'Все, кому интересно', body:'И те, кто давно с нами, и те, кто просто хочет познакомиться.'},
+   {k:'cta', title:'⟦Адрес · время⟧', sub:'Записаться — в боте, кнопка «☕ Клуб»'}],
+  caption:`Пятница — день нашего клуба ☕
+
+Собираемся небольшой компанией: пробуем средства, пьём чай, знакомимся и разбираем вопросы — от «что выбрать для кожи» до «как устроена работа в команде».
+
+Приходят и те, кто с нами давно, и те, кто просто хочет познакомиться. Покупать ничего не нужно 🙂
+
+📍 ⟦Город, район⟧
+🕕 ⟦Время⟧
+Записаться — в боте, кнопка «☕ Клуб» (ссылка в шапке), или в директ. Так я успею подготовить пробники на всех.
+
+Были у нас? Поставьте 🤍 — пусть другие видят, что у нас уютно.`,
+  tags:'#тбилиси #русскиевгрузии #жизньвгрузии #встречи #корейскийуход',
+  why:'Живая встреча — самый сильный шаг к команде: человек знакомится с Анной вживую, без давления.'},
+
+ {n:7, type:'photo', reels:true, fmt:'Reels · 25–30 с', when:'Неделя 2 · пн', title:'Распаковка заказа',
+  slides:[
+   {k:'photo', img:'boxes', kicker:'Reels', title:'Распаковка: что пришло в этом месяце', need:'Видео 20–30 с: Анна открывает коробку с заказом'},
+   {k:'list', tone:1, title:'Сценарий · 25–30 с', items:['0–2 с: «Что пришло в этом месяце 📦» — коробка крупно','2–8 с: открываю, достаю по одному','8–22 с: 3 товара крупно, по фразе — зачем беру','22–30 с: «Подборки — в боте, ссылка в шапке»']},
+   {k:'text', tone:3, big:'9:16', kicker:'Как снимать', title:'Днём, у окна, вертикально', body:'Музыка — тихая, из библиотеки Instagram. Текст — крупно, по центру кадра.'}],
+  caption:`Распаковка заказа 📦
+
+Что пришло в этом месяце: ⟦3 товара⟧. Рассказываю, зачем беру каждый и как пользуюсь.
+
+Какой товар показать подробнее? Напишите в комментариях 👇
+
+Все подборки с ценой участника — в боте, ссылка в шапке профиля.
+Я независимый участник компании.`,
+  tags:'#распаковка #корейскаякосметика #корейскийуход #бадыизкореи #грузия',
+  why:'Reels показывают людям, которые ещё не подписаны, — главный источник новых подписчиков. Распаковка — самый простой формат для старта.'},
+
+ {n:8, type:'product', fmt:'Карусель · 5', when:'Неделя 2 · ср', title:'Мой вечерний уход: 3 шага',
+  slides:[
+   {k:'product', imgs:['R00355'], kicker:'Уход', title:'Мой вечерний уход: 3 шага'},
+   {k:'product', imgs:['R00325'], kicker:'Шаг 1', title:'Очищение'},
+   {k:'product', imgs:['R00305'], kicker:'Шаг 2', title:'Пенка для умывания'},
+   {k:'product', imgs:['R00267'], kicker:'Шаг 3', title:'Питательный крем'},
+   {k:'cta', title:'Вся линейка — в боте', sub:'Подборка «🧴 Уход за лицом»'}],
+  caption:`Мой вечерний уход — всего 3 шага 🌙
+
+1. Очищение — первое умывание.
+2. Пенка — второе, мягкое.
+3. Питательный крем — последний шаг.
+
+Не нужно десять баночек: мне хватает этих трёх ⟦уточнить: что ещё добавляет по настроению⟧.
+
+Пользуюсь ими ⟦сколько лет⟧. Это мой опыт — уход подбирайте под свою кожу, а если сомневаетесь, напишите, помогу.
+
+Подборка «🧴 Уход за лицом» с ценой участника — в боте, ссылка в шапке.`,
+  tags:'#вечернийуход #уходзалицом #корейскийуход #корейскаякосметика #уходзакожей',
+  why:'Понятная польза за 10 секунд. Каждый шаг — отдельный слайд с официальным фото, текст не перекрывает товар.'},
+
+ {n:9, type:'text', fmt:'Карусель · 6', when:'Неделя 2 · пт', title:'Первые 30 дней в команде',
+  slides:[
+   {k:'text', tone:2, big:'30', kicker:'Новичкам', title:'Первые 30 дней в команде'},
+   {k:'text', tone:1, big:'1', kicker:'Неделя 1', title:'Знакомство', body:'Регистрация, каталог, по желанию — первый заказ для себя. Я на связи.'},
+   {k:'text', tone:2, big:'2', kicker:'Неделя 2', title:'Пробуем', body:'Пользуетесь продуктами и записываете, что понравилось.'},
+   {k:'text', tone:1, big:'3', kicker:'Неделя 3', title:'Делимся', body:'Рассказываете близким о том, что используете сами. Без давления.'},
+   {k:'text', tone:2, big:'4', kicker:'Неделя 4', title:'Разбор', body:'Созваниваемся: что получилось и что дальше.'},
+   {k:'cta', title:'Хотите так же?', sub:'Напишите в бот «Команда»'}],
+  caption:`Что происходит в первые 30 дней, если прийти ко мне в команду 🗓
+
+Неделя 1 — знакомство: регистрация, каталог, по желанию — первый заказ для себя. Я на связи на каждом шаге.
+Неделя 2 — пробуем: пользуетесь продуктами и записываете, что понравилось.
+Неделя 3 — делимся: рассказываете близким о том, что используете сами. Без давления и навязывания.
+Неделя 4 — разбор: созваниваемся и решаем, что дальше. Можно остаться просто покупателем — это нормально.
+
+Хотите попробовать — напишите в бот слово «Команда» (ссылка в шапке).
+
+Сохраните, чтобы вернуться 📌`,
+  tags:'#сетевоймаркетинг #командаединомышленников #обучение #русскиевгрузии #тбилиси',
+  why:'Превращает «команду» из абстракции в понятный план. Снимает страх «не справлюсь».'},
+
+ {n:10, type:'text', fmt:'Карусель · 4', when:'Неделя 3 · пн', title:'Отзыв',
+  slides:[
+   {k:'quote', tone:1, quote:'⟦Короткая цитата из отзыва клиента⟧', who:'⟦Имя, город⟧'},
+   {k:'shot', tone:2, msgs:[['l','⟦Сообщение клиента⟧'],['r','⟦Ответ Анны⟧'],['l','⟦…⟧']], need:'Скриншот переписки с разрешения, без фамилий'},
+   {k:'shot', tone:1, msgs:[['l','⟦Ещё отзыв⟧'],['l','⟦…⟧']], need:'Скриншот отзыва'},
+   {k:'cta', title:'Поделитесь своим опытом', sub:'Публикую только с вашего согласия'}],
+  caption:`Ваши отзывы — лучшая благодарность 🤍
+
+⟦Текст отзыва — дословно, с разрешения автора⟧
+
+Публикую только с согласия и без фамилий. Если пользуетесь чем-то из моих подборок — расскажите, как вам: в директ или в бот.
+
+У каждого свой опыт, результат зависит от человека. Продукты — не лекарство.`,
+  tags:'#отзывы #корейскийуход #корейскаякосметика #русскиевгрузии #бадыизкореи',
+  why:'Слова других людей убеждают сильнее, чем слова Анны. Только реальные отзывы и без медицинских обещаний.'},
+
+ {n:11, type:'photo', fmt:'Карусель · 4', when:'Неделя 3 · ср', title:'Разбираем первый заказ вместе',
+  slides:[
+   {k:'photo', img:'laptop', kicker:'Как я работаю', title:'Разбираем первый заказ вместе', need:'Анна за ноутбуком или с телефоном — видеозвонок'},
+   {k:'list', tone:1, title:'Что делаем', items:['Регистрация — по шагам','Где цена участника и как копятся баллы','Корзина под ваш запрос — без лишнего']},
+   {k:'text', tone:2, big:'⏱', kicker:'Сколько времени', title:'⟦20–30 минут⟧', body:'По видеосвязи или в Telegram — как вам удобнее.'},
+   {k:'cta', title:'Записаться на разбор', sub:'Напишите в бот «Разбор»'}],
+  caption:`Как я помогаю тем, кто только начинает 💻
+
+Многих пугает первый заказ на иностранном сайте: регистрация, баллы, доставка. Поэтому первый раз делаем вместе:
+— регистрируемся по шагам;
+— смотрим, где цена участника и как копятся баллы;
+— собираем корзину под ваш запрос — без лишнего.
+
+Занимает ⟦20–30 минут⟧ по видеосвязи или в Telegram.
+
+Хотите так — напишите в бот «Разбор» (ссылка в шапке), договоримся о времени.`,
+  tags:'#корейскийуход #бадыизкореи #русскиевгрузии #тбилиси #помощь',
+  why:'Показывает Анну как наставника: работает и на покупателей, и на будущую команду.'},
+
+ {n:12, type:'product', fmt:'Карусель · 5', when:'Неделя 3 · пт', title:'Корейские средства для дома',
+  slides:[
+   {k:'product', imgs:['R00829','R00505','R02312'], kicker:'Дом', title:'Корейские средства для дома'},
+   {k:'product', imgs:['R00505'], kicker:'Каждый день', title:'Зубная паста'},
+   {k:'product', imgs:['R00829'], kicker:'Кухня', title:'Средство для посуды'},
+   {k:'product', imgs:['R02312'], kicker:'Стирка', title:'Кислородный отбеливатель'},
+   {k:'cta', title:'Подборки — в боте', sub:'«🏠 Дом и стирка» и «🪥 Гигиена и зубы»'}],
+  caption:`Не только уход: что из корейских средств я беру для дома 🏠
+
+🦷 Зубная паста — ⟦чем нравится⟧.
+🍽 Средство для посуды — ⟦чем нравится⟧.
+👕 Кислородный отбеливатель — ⟦для чего использую⟧.
+
+Это то, что заканчивается каждый месяц, — и именно здесь цена участника экономит больше всего.
+
+Подборки «🏠 Дом и стирка» и «🪥 Гигиена и зубы» — в боте, ссылка в шапке. Что ещё показать из бытового? 👇`,
+  tags:'#длядома #корейскиесредства #бытоваяхимия #грузия #тбилиси',
+  why:'Регулярные покупки — то, ради чего люди остаются покупателями. Хорошо подводит к регистрации.'},
+];
+
+const ICONS = {
+  about:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  team:'<circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c1-3.5 3.3-5 6-5s5 1.5 6 5"/><path d="M15.5 14.6c2.6 0 4.6 1.4 5.5 4.4"/>',
+  price:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/>',
+  order:'<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  reviews:'<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/>',
+  club:'<path d="M4 9h13v4.5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.4a2.4 2.4 0 0 1 0 4.8H17"/><path d="M8 3.5c0 1.4 1 1.4 1 2.8M12 3.5c0 1.4 1 1.4 1 2.8"/>',
+  hemo:'<path d="M12 21V11"/><path d="M12 11C12 6.5 8.5 4 4 4c0 4.2 3.2 7 8 7z"/><path d="M12 13.5c0-4 3-6.2 7.5-6.2 0 4-3 6.2-7.5 6.2z"/>',
+  care:'<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.5"/>',
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/>',
+};
+
+const HIGHLIGHTS = [
+ {label:'Обо мне', icon:'about', frames:[
+   {img:'anna', t:'Привет! Я Анна 👋'},
+   {t:'10 лет пользуюсь корейскими БАДами и уходом'},
+   {img:'tbilisi', t:'Живу в Грузии'},
+   {t:'Помогаю покупать по цене участника и собрать свою команду'},
+   {t:'Всё остальное — в боте', s:'стикер-ссылка ' + BOT}]},
+ {label:'Команда', icon:'team', frames:[
+   {t:'Кому подходит', s:'вы и так покупаете уход · любите делиться · готовы учиться'},
+   {t:'Что даю я', s:'обучение · группа · бот · разбор первых заказов'},
+   {t:'Чего не обещаю', s:'быстрых денег — доход только от реальных покупок'},
+   {t:'Регистрация бесплатная', s:'обязательных взносов нет'},
+   {t:'Бот → «🤝 Стать партнёром»', s:'стикер-ссылка'}]},
+ {label:'Скидка', icon:'price', frames:[
+   {t:'На сайте две цены', s:'для гостя и для участника'},
+   {t:'Разница ≈ 10%', s:'в среднем по каталогу'},
+   {t:'Как стать участником', s:'бот → «📝 Зарегистрироваться самому»'}]},
+ {label:'Как заказать', icon:'order', frames:[
+   {t:'1. Откройте бот', s:'ссылка в шапке профиля'},
+   {t:'2. «🛍 Купить со скидкой»', s:'или «✨ Подборки»'},
+   {t:'3. «✉️ Написать Анне»', s:'уточню наличие и сроки'},
+   {t:'4. Получение', s:'⟦доставка по Грузии / самовывоз⟧'}]},
+ {label:'Отзывы', icon:'reviews', frames:[
+   {t:'⟦Скриншот отзыва⟧', s:'с разрешения, без фамилий'},
+   {t:'⟦Скриншот отзыва⟧', s:'с разрешения, без фамилий'},
+   {t:'Поделитесь своим', s:'в директ или в бот'}]},
+ {label:'Клуб', icon:'club', frames:[
+   {img:'club', t:'Пятница — наш клуб'},
+   {t:'Чай, пробники, вопросы', s:'покупать ничего не нужно'},
+   {t:'⟦Адрес и время⟧', s:'бот → «☕ Клуб»'}]},
+ {label:'ХемоХИМ', icon:'hemo', frames:[
+   {p:'R00001', t:'Мой №1 уже 10 лет'},
+   {t:'Три растения', s:'дудник гигантский · пион молочноцветковый · жгун-корень'},
+   {t:'Это БАД, не лекарство', s:'есть заболевания — сначала к врачу'},
+   {t:'Подборка «⭐ Главный хит»', s:'в боте'}]},
+ {label:'Уход', icon:'care', frames:[
+   {p:'R00355', t:'Вечерний уход: 3 шага'},
+   {img:'cream-hand', t:'⟦Как я наношу крем⟧', s:'видео 10–15 с'},
+   {t:'Подборка «🧴 Уход за лицом»', s:'в боте'}]},
+ {label:'Дом', icon:'home', frames:[
+   {p:'R00829', t:'Для кухни'},
+   {p:'R02312', t:'Для стирки'},
+   {t:'Подборка «🏠 Дом и стирка»', s:'в боте'}]},
+];
+
+/* ---------- утилиты ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = s => esc(s).replace(/⟦([^⟧]*)⟧/g, '<mark class="todo">$1</mark>');
+const IMG = k => `img/${k}.jpg`;
+const PIMG = c => `img/products/${c}.jpg`;
+const svgIcon = k => `<svg viewBox="0 0 24 24">${ICONS[k]}</svg>`;
+const SVG = {
+  pin:'<svg viewBox="0 0 24 24"><path d="M15.5 3.5 20.5 8.5 17.6 9.9 14 13.5 13.6 17.6 12 19.2 8.2 15.4 4 19.6 3 20.6 4.4 19.6 8.6 15.8 4.8 12 6.4 10.4 10.5 10 14.1 6.4z"/></svg>',
+  reels:'<svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm5 6v7l6-3.5z"/></svg>',
+  multi:'<svg viewBox="0 0 24 24"><path d="M7 3h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-1V8a3 3 0 0 0-3-3H7z"/><rect x="3" y="7" width="13" height="14" rx="2"/></svg>',
+};
+
+function card(c) {
+  const t = c.tone || 1;
+  const kick = c.kicker ? `<span class="kick">${fmt(c.kicker)}</span>` : '';
+  const ttl = c.title ? `<span class="ttl">${fmt(c.title)}</span>` : '';
+  const bd = c.body ? `<span class="bd">${fmt(c.body)}</span>` : '';
+  switch (c.k) {
+    case 'photo':
+      return `<div class="card k-photo"><div class="ph"><img src="${IMG(c.img)}" alt="" loading="lazy"></div><div class="cap">${kick}${ttl}${bd}</div></div>`;
+    case 'text':
+      return `<div class="card k-text t${t}"><div class="in" data-big="${esc(c.big || '')}">${kick}${ttl}${bd}</div></div>`;
+    case 'list':
+      return `<div class="card k-list t${t}"><div class="in">${ttl}<ol>${c.items.map(i => `<li><span>${fmt(i)}</span></li>`).join('')}</ol></div></div>`;
+    case 'quote':
+      return `<div class="card k-quote t${t}"><div class="in"><span class="qm">“</span><span class="q">${fmt(c.quote)}</span><span class="who">— ${fmt(c.who)}</span></div></div>`;
+    case 'product':
+      return `<div class="card k-product"><div class="pimgs n${c.imgs.length}">${c.imgs.map(p => `<img src="${PIMG(p)}" alt="" loading="lazy">`).join('')}</div><div class="pt">${kick}${ttl}</div></div>`;
+    case 'cta':
+      return `<div class="card k-cta"><div class="in">${ttl}${c.sub ? `<span class="bd">${fmt(c.sub)}</span>` : ''}<span class="pill">${BOT}</span><span class="up">↑ ссылка в шапке профиля</span></div></div>`;
+    case 'shot':
+      return `<div class="card k-shot t${t}"><div class="in">${c.msgs.map(([s, m]) => `<div class="bb ${s}">${fmt(m)}</div>`).join('')}</div><span class="need-tag">скриншот</span></div>`;
+  }
+  return '';
+}
+
+function frameCard(f, i) {
+  const t = (i % 3) + 1;
+  if (f.img) return card({k:'photo', img:f.img, title:f.t, body:f.s});
+  if (f.p) return card({k:'product', imgs:[f.p], title:f.t});
+  return `<div class="card k-text t${t}" style="aspect-ratio:9/16"><div class="in" data-big="${i + 1}"><span class="ttl">${fmt(f.t)}</span>${f.s ? `<span class="bd">${fmt(f.s)}</span>` : ''}</div></div>`;
+}
+
+/* ---------- профиль ---------- */
+function renderProfile() {
+  $('#uname').textContent = PROFILE.user;
+  $('#bio').innerHTML = `<div class="nm">${esc(PROFILE.name)}</div><div class="cat">${esc(PROFILE.cat)}</div><div class="tx">${esc(PROFILE.bio)}</div>
+    <div class="lnk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00376b" stroke-width="2.2"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>${BOT}</div>`;
+  $('#pname').textContent = PROFILE.name;
+  $('#biotext').textContent = PROFILE.bio;
+  const n = [...PROFILE.bio].length;
+  $('#biocnt').textContent = `— ${n} из 150 символов`;
+  $('#hls').innerHTML = HIGHLIGHTS.map((h, i) => `<button class="hl" data-h="${i}"><span class="c"><span>${svgIcon(h.icon)}</span></span><em>${esc(h.label)}</em></button>`).join('');
+}
+
+function renderBios() {
+  $('#bgrid').innerHTML = BIOS.map((b, i) => `<article class="bcard ${i === bioIdx ? 'on' : ''}" style="animation-delay:${i * 60}ms">
+    <header><span class="bn">${i + 1}</span><b>${esc(b.name)}</b><span class="ang">${esc(b.angle)}</span>${b.rec ? '<span class="rec">Рекомендую</span>' : ''}</header>
+    <div class="btext">${esc(b.text)}</div>
+    <div class="bmeta">${[...b.text].length} из 150 символов</div>
+    <p class="bnote">${esc(b.note)}</p>
+    <div class="bact"><button class="bshow" data-bio="${i}">${i === bioIdx ? 'Сейчас в макете' : 'Показать в макете'}</button><button class="copy" data-copybio="${i}">Скопировать</button></div>
+  </article>`).join('');
+}
+
+function setBio(i) {
+  bioIdx = i;
+  PROFILE.bio = BIOS[i].text;
+  renderProfile();
+  renderBios();
+  $('.screen').scrollTop = 0;
+  $('.phone').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function gridOrder() {
+  const pinned = POSTS.filter(p => p.pin).sort((a, b) => a.pin - b.pin);
+  const rest = POSTS.filter(p => !p.pin).sort((a, b) => b.n - a.n);
+  return [...pinned, ...rest];
+}
+
+function renderGrid() {
+  $('#grid').innerHTML = gridOrder().map((p, i) => {
+    const b = [p.pin ? SVG.pin : '', p.reels ? SVG.reels : (p.slides.length > 1 ? SVG.multi : '')].join('');
+    const cam = p.slides[0].need ? '<span class="cam">📷 фото Анны</span>' : '';
+    return `<button class="tile" data-n="${p.n}" style="animation-delay:${i * 45}ms">${card(p.slides[0])}<span class="bdg">${b}</span><span class="num">#${p.n}</span>${cam}</button>`;
+  }).join('');
+}
+
+function renderPlan() {
+  $('#mix').innerHTML = MIX.map(([t, v]) => `<li><span>${t}</span><b>${v}%</b><span class="bar"><i style="width:${v}%"></i></span></li>`).join('');
+  $('#sched').innerHTML = POSTS.map(p => `<li data-n="${p.n}"><span class="n">${p.n}</span><span><b>${fmt(p.title)}</b>${p.pin ? '<span class="tg">закрепить</span>' : ''}${p.reels ? '<span class="tg">Reels</span>' : ''}</span><span class="w">${p.when}</span></li>`).join('');
+  renderVlist();
+}
+
+function renderVlist() {
+  const cur = document.body.dataset.v;
+  $('#vlist').innerHTML = Object.entries(VARIANTS).map(([k, v]) => `<button class="vrow ${k === cur ? 'on' : ''}" data-v="${k}"><span class="mini">${[0,1,2,1,2,3,2,3,0].map(i => `<i style="background:${v.sw[i]}"></i>`).join('')}</span><span><b>${String.fromCharCode(64 + Object.keys(VARIANTS).indexOf(k) + 1)} · ${v.name}</b><span>${v.d}</span></span></button>`).join('');
+  $('#vtabs').innerHTML = Object.entries(VARIANTS).map(([k, v], i) => `<button class="vtab" data-v="${k}" aria-pressed="${k === cur}"><span class="sw">${v.sw.slice(0, 3).map(c => `<i style="background:${c}"></i>`).join('')}</span><b>${'ABC'[i]}</b> ${v.name}</button>`).join('');
+}
+
+function setVariant(v) {
+  document.body.dataset.v = v;
+  try { localStorage.setItem('anna-ig-v', v); } catch (e) {}
+  renderVlist();
+  renderGrid();
+}
+
+/* ---------- модалка ---------- */
+function openPost(n) {
+  const p = POSTS.find(x => x.n === n);
+  $('#mbody').innerHTML = `
+    <div class="mhead"><h2>№${p.n} · ${fmt(p.title)}</h2><span class="meta">${p.fmt} · ${p.when}${p.pin ? ' · закрепить' : ''}</span></div>
+    <div class="slides">${p.slides.map((s, i) => `<div class="slide">${card(s)}<div class="sn">${p.reels && i === 0 ? 'обложка Reels' : 'слайд ' + (i + 1)}</div>${s.need ? `<div class="nd">📷 ${esc(s.need)}</div>` : ''}</div>`).join('')}</div>
+    <div class="mcols">
+      <div><div class="capbar"><span>Текст поста</span><button class="copy" data-copy="${p.n}">Скопировать текст</button></div>
+        <div class="capbox">${fmt(p.caption)}</div><div class="tags">${esc(p.tags)}</div></div>
+      <dl class="notes"><dt>Зачем этот пост</dt><dd>${esc(p.why)}</dd>
+        <dt>Формат</dt><dd>${p.fmt}. Картинки 1080×1350 (3:4) — так их показывает сетка профиля.</dd>
+        <dt>Когда</dt><dd>${p.when}${p.pin ? '. После публикации — закрепить в профиле.' : '.'}</dd></dl>
+    </div>`;
+  $('#modal').classList.add('on');
+}
+
+function openHighlight(i) {
+  const h = HIGHLIGHTS[i];
+  $('#mbody').innerHTML = `
+    <div class="mhead"><h2>Хайлайт «${esc(h.label)}»</h2><span class="meta">${h.frames.length} сторис · 1080×1920</span></div>
+    <div class="slides">${h.frames.map((f, j) => `<div class="slide story">${frameCard(f, j)}<div class="sn">сторис ${j + 1}</div></div>`).join('')}</div>
+    <p class="meta" style="color:var(--page-muted);font-size:14px">Обложка — иконка в кружке, как в макете. Сторис с фото снимает Анна, текстовые подготовлю картинками.</p>`;
+  $('#modal').classList.add('on');
+}
+
+const closeModal = () => $('#modal').classList.remove('on');
+
+/* ---------- события ---------- */
+document.addEventListener('click', e => {
+  const t = e.target.closest('.tile, .sched li');
+  if (t) return openPost(+t.dataset.n);
+  const h = e.target.closest('.hl');
+  if (h) return openHighlight(+h.dataset.h);
+  const v = e.target.closest('[data-v]:not(body)');
+  if (v && (v.classList.contains('vtab') || v.classList.contains('vrow'))) return setVariant(v.dataset.v);
+  const pt = e.target.closest('.ptab');
+  if (pt) {
+    document.querySelectorAll('.ptab').forEach(b => b.setAttribute('aria-selected', b === pt));
+    document.querySelectorAll('.pane').forEach(s => s.classList.toggle('on', s.id === 'p-' + pt.dataset.p));
+    return;
+  }
+  const bs = e.target.closest('.bshow');
+  if (bs) return setBio(+bs.dataset.bio);
+  const cp = e.target.closest('.copy');
+  if (cp) {
+    const label = cp.textContent;
+    let txt;
+    if (cp.dataset.copybio !== undefined) txt = BIOS[+cp.dataset.copybio].text;
+    else { const p = POSTS.find(x => x.n === +cp.dataset.copy); txt = p.caption + '\n\n' + p.tags; }
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => {
+      cp.textContent = 'Скопировано ✓'; cp.classList.add('ok');
+      setTimeout(() => { cp.textContent = label; cp.classList.remove('ok'); }, 1600);
+    }).catch(() => { cp.textContent = 'Не удалось — выделите вручную'; });
+    return;
+  }
+  if (e.target.id === 'modal' || e.target.id === 'mclose') closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+$('#numToggle').addEventListener('change', e => document.body.classList.toggle('show-num', e.target.checked));
+
+let saved = null;
+try { saved = localStorage.getItem('anna-ig-v'); } catch (e) {}
+const startV = new URLSearchParams(location.search).get('v') || saved || 'a';
+document.body.dataset.v = VARIANTS[startV] ? startV : 'a';
+renderProfile();
+renderPlan();
+renderGrid();
+renderBios();
+</script>
+</body>
+</html>
