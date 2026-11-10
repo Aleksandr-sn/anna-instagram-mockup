@@ -7,7 +7,7 @@
 <title>Instagram Анны — макет профиля</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@400;500;600;700&family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 /* ---------- варианты оформления ---------- */
 body[data-v="a"]{ /* Утро */
@@ -31,6 +31,13 @@ body[data-v="c"]{ /* Дневник */
   --display:'Caveat', cursive; --body:'Literata', Georgia, serif;
   --hl-bg:#EADBC4; --hl-ink:#1D1D1B; --hl-ring:#1D1D1B;
 }
+body[data-v="d"]{ /* Море: фирменный синий Atomy + абрикос */
+  --paper:#F3F7FC; --ink:#0D2B4E; --muted:#5B6F87;
+  --t1:#0B5FAE; --t1i:#FFFFFF; --t2:#E2EDF9; --t2i:#0D2B4E; --t3:#F4A261; --t3i:#2B1806;
+  --accent:#F4A261; --accent2:#0B5FAE;
+  --display:'Manrope', system-ui, sans-serif; --body:'Onest', system-ui, sans-serif;
+  --hl-bg:#E2EDF9; --hl-ink:#0B5FAE; --hl-ring:#F4A261;
+}
 
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -46,6 +53,7 @@ mark.todo{background:#FFE58A; color:#3b2f00; border-radius:3px; padding:0 .2em; 
 .top h1{font-family:var(--display); font-weight:400; font-size:clamp(28px,4vw,46px); line-height:1.05; margin:0; letter-spacing:-.01em}
 body[data-v="b"] .top h1{font-weight:800; font-size:clamp(24px,3.4vw,38px)}
 body[data-v="c"] .top h1{font-weight:700; font-size:clamp(36px,5vw,58px)}
+body[data-v="d"] .top h1{font-weight:800; letter-spacing:-.02em}
 .top p{margin:6px 0 0; color:var(--page-muted); font-size:14px; max-width:560px}
 .vtabs{display:flex; gap:8px; flex-wrap:wrap}
 .vtab{border:1px solid var(--page-line); background:transparent; border-radius:999px; padding:8px 14px 8px 8px; display:flex; align-items:center; gap:10px; font-size:14px; transition:.25s}
@@ -213,6 +221,33 @@ body[data-v="c"] .k-cta .ttl{font-size:12cqw}
 body[data-v="c"] .k-cta .up{font-family:var(--display); font-size:7cqw; color:var(--accent); opacity:1; font-weight:700}
 body[data-v="c"] .k-quote .q{font-size:9.4cqw; font-weight:700}
 
+/* --- D · Море: синий Atomy, абрикос, мягкие волны и скругления --- */
+body[data-v="d"] .card .ttl{font-weight:800; letter-spacing:-.02em; line-height:1.1}
+body[data-v="d"] .card .kick{color:var(--accent2); opacity:1; letter-spacing:.12em}
+body[data-v="d"] .card.t1 .kick{color:var(--accent)}
+body[data-v="d"] .card.t3 .kick{color:#7A3E10}
+body[data-v="d"] .card.t1{background:radial-gradient(120% 80% at 100% 0%, #2F86D6 0%, transparent 55%), var(--t1)}
+body[data-v="d"] .card.t2{background:linear-gradient(180deg, #F3F8FE, var(--t2))}
+body[data-v="d"] .card.t1::after, body[data-v="d"] .card.t2::after{content:""; position:absolute; left:-10%; right:-10%; bottom:-14cqw; height:34cqw; border-radius:50%; background:var(--accent); opacity:.22; pointer-events:none}
+body[data-v="d"] .card.t2::after{background:var(--accent2); opacity:.1}
+body[data-v="d"] .k-text .in::before{content:attr(data-big); position:absolute; top:5cqw; right:7cqw; font-family:var(--display); font-weight:800; font-size:22cqw; line-height:1; color:var(--accent); opacity:.9}
+body[data-v="d"] .k-text.t2 .in::before{color:var(--accent2); opacity:.18}
+body[data-v="d"] .k-photo .ph img{filter:saturate(.95) contrast(1.03)}
+body[data-v="d"] .k-photo .cap{background:linear-gradient(to top, rgba(8,48,92,.92), rgba(11,95,174,.35) 60%, transparent)}
+body[data-v="d"] .k-photo .kick{align-self:flex-start; background:var(--accent); color:#2B1806; padding:1.6cqw 3cqw; border-radius:99cqw; letter-spacing:.08em; font-size:3.4cqw}
+body[data-v="d"] .k-product{background:var(--t2)}
+body[data-v="d"] .k-product .pimgs{border-radius:6cqw; box-shadow:0 2cqw 6cqw rgba(11,95,174,.18)}
+body[data-v="d"] .k-product .pt{left:5cqw; right:5cqw; bottom:5cqw; padding:4.5cqw 6cqw; background:#fff; border-radius:5cqw; box-shadow:0 1.5cqw 5cqw rgba(13,43,78,.12)}
+body[data-v="d"] .k-product .kick{color:#C46A1C}
+body[data-v="d"] .k-cta{background:linear-gradient(150deg, var(--t1), #083E74); color:#fff}
+body[data-v="d"] .k-cta .pill{background:var(--accent); color:#2B1806}
+body[data-v="d"] .k-shot .bb.r{color:#2B1806}
+body[data-v="d"] .k-list li::before{font-weight:800; color:var(--accent)}
+body[data-v="d"] .card.t2 .k-list li::before, body[data-v="d"] .k-list.t2 li::before{color:var(--accent2)}
+body[data-v="d"] .k-quote .qm{color:var(--accent)}
+body[data-v="d"] .card.t3 .k-list li::before, body[data-v="d"] .k-list.t3 li::before{color:var(--accent2)}
+body[data-v="d"] .k-quote .q{font-family:var(--display); font-weight:700; font-size:7cqw}
+
 /* ---------- панель стратегии ---------- */
 .plan{animation:rise .8s .1s cubic-bezier(.2,.8,.2,1) both}
 .ptabs{display:flex; flex-wrap:wrap; gap:4px; border-bottom:1px solid var(--page-line); margin-bottom:22px}
@@ -223,6 +258,7 @@ body[data-v="c"] .k-quote .q{font-size:9.4cqw; font-weight:700}
 .pane h3{font-family:var(--display); font-weight:400; font-size:26px; margin:26px 0 8px; line-height:1.15}
 body[data-v="b"] .pane h3{font-weight:600; font-size:19px; letter-spacing:-.01em}
 body[data-v="c"] .pane h3{font-weight:700; font-size:32px}
+body[data-v="d"] .pane h3{font-weight:800; font-size:22px; letter-spacing:-.01em}
 .pane h3:first-child{margin-top:0}
 .pane p{margin:8px 0}
 .pane code{font-size:.9em; background:var(--page-card); border:1px solid var(--page-line); padding:1px 6px; border-radius:6px}
@@ -382,7 +418,7 @@ body[data-v="c"] .slide.story .card .ttl{font-size:14cqw}
       <ul class="mix" id="mix"></ul>
       <h3>Почему в постах нет цен</h3>
       <p>Правила компании запрещают интернет-магазины в соцсетях, даже витрину. Поэтому в постах Анна делится опытом и советами, а цены и заказ — только в боте. Так профиль выглядит как блог и меньше рискует.</p>
-      <h3>Три варианта оформления</h3>
+      <h3>Четыре варианта оформления</h3>
       <div class="vlist" id="vlist"></div>
     </section>
 
@@ -518,6 +554,7 @@ const VARIANTS = {
   a: {name:'Утро', d:'Светлый: крем, шалфей, терракота, изящная антиква. Ощущение ухоженности и спокойствия. Самый «женский» и мягкий.', sw:['#F7F2EC','#E9D5C9','#CAD5C3','#2F3B33']},
   b: {name:'Изумруд', d:'Глубокий зелёный с золотом и кораллом, крупный шрифт. Выглядит уверенно и дорого — лучше всего продаёт идею команды.', sw:['#183A34','#C9A45C','#EFE6D6','#E07A5F']},
   c: {name:'Дневник', d:'Бумага, рукописные заголовки, полароиды и скотч. Живой личный блог — больше всего доверия к человеку.', sw:['#FBF8F1','#EADBC4','#D2492A','#1F1E1C']},
+  d: {name:'Море', d:'Фирменный синий Atomy с тёплым абрикосом, мягкие волны и скругления. Сразу узнаётся как Atomy, но остаётся личным и дружелюбным.', sw:['#0B5FAE','#F4A261','#E2EDF9','#0D2B4E']},
 };
 
 const MIX = [
@@ -937,7 +974,7 @@ function renderPlan() {
 function renderVlist() {
   const cur = document.body.dataset.v;
   $('#vlist').innerHTML = Object.entries(VARIANTS).map(([k, v]) => `<button class="vrow ${k === cur ? 'on' : ''}" data-v="${k}"><span class="mini">${[0,1,2,1,2,3,2,3,0].map(i => `<i style="background:${v.sw[i]}"></i>`).join('')}</span><span><b>${String.fromCharCode(64 + Object.keys(VARIANTS).indexOf(k) + 1)} · ${v.name}</b><span>${v.d}</span></span></button>`).join('');
-  $('#vtabs').innerHTML = Object.entries(VARIANTS).map(([k, v], i) => `<button class="vtab" data-v="${k}" aria-pressed="${k === cur}"><span class="sw">${v.sw.slice(0, 3).map(c => `<i style="background:${c}"></i>`).join('')}</span><b>${'ABC'[i]}</b> ${v.name}</button>`).join('');
+  $('#vtabs').innerHTML = Object.entries(VARIANTS).map(([k, v], i) => `<button class="vtab" data-v="${k}" aria-pressed="${k === cur}"><span class="sw">${v.sw.slice(0, 3).map(c => `<i style="background:${c}"></i>`).join('')}</span><b>${'ABCD'[i]}</b> ${v.name}</button>`).join('');
 }
 
 function setVariant(v) {
